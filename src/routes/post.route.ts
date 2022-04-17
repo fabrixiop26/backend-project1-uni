@@ -40,7 +40,7 @@ route.get<{}, PostResponse, {}, PostQueryParams>("/", async (req, res) => {
   try {
     const p = await Post.findById(post_id);
     if (!p) {
-      return res.status(404).json({ message: "Post does not exists" });
+      return res.status(404).json({ message: "Post does not exist" });
     }
     res.status(200).json(p);
   } catch (e: any) {
@@ -50,7 +50,7 @@ route.get<{}, PostResponse, {}, PostQueryParams>("/", async (req, res) => {
 });
 
 //createPost
-route.post<{}, BodyResponse<IPost>>("/", async (req, res) => {
+route.post<{}, BodyResponse<IPost>, IPost>("/", async (req, res) => {
   try {
     const p = await Post.create(req.body);
     res.status(200).json({ data: p });

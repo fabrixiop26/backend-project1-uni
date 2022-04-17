@@ -17,7 +17,7 @@ route.get<{}, BodyResponse<IUser>, {}, UserQueryParams>(
     try {
       const u = await User.findById(user_id);
       if (!u) {
-        return res.status(404).json({ message: "User does not exists" });
+        return res.status(404).json({ message: "User does not exist" });
       }
       res.status(200).json({ data: u });
     } catch (e: any) {
