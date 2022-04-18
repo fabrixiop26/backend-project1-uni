@@ -2,13 +2,14 @@ import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 //interface representing a document in MongoDB.
 export interface IUser {
-  displayName: string;
+  display_name: string;
   username: string;
   password: string;
+  created_at: Date;
 }
 //Create a Schema corresponding to the document interface.
 const userSchema = new Schema<IUser>({
-  displayName: {
+  display_name: {
     type: String,
     required: true,
   },
@@ -20,6 +21,10 @@ const userSchema = new Schema<IUser>({
   username: {
     type: String,
     required: true,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 

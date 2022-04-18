@@ -10,7 +10,7 @@ type HistoryResponse = IHistory[] | Error;
 route.get<UserQueryParams, HistoryResponse>("/:user_id", async (req, res) => {
   const { user_id } = req.params;
   try {
-    //find all history of these user
+    //find all history of this user
     const h = await History.find({ user_id });
     res.status(200).json(h);
   } catch (e: any) {

@@ -70,11 +70,11 @@ route.post<{}, BodyResponse<IUser>, UserQueryParams>(
 
 //register
 route.post<{}, BodyResponse<IUser>, IUser>("/register", async (req, res) => {
-  const { displayName, password, username } = req.body;
+  const { display_name, password, username } = req.body;
   try {
     const hashedPw = await hashPw(password);
     const u = await User.create({
-      displayName,
+      display_name,
       username,
       password: hashedPw,
     });

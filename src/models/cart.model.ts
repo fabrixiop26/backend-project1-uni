@@ -3,6 +3,7 @@ import { model, Schema } from "mongoose";
 export interface ICart {
   user_id: string;
   product_id: string;
+  created_at: Date;
 }
 
 const cartSchema = new Schema<ICart>({
@@ -15,6 +16,10 @@ const cartSchema = new Schema<ICart>({
     type: String,
     required: true,
     unique: true,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 
