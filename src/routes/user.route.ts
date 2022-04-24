@@ -19,7 +19,7 @@ route.get<{}, BodyResponse<IUser>, {}, UserQueryParams>(
       if (!u) {
         return res.status(404).json({ message: "User does not exist" });
       }
-      res.status(200).json({ data: u });
+      res.status(200).json(u);
     } catch (e: any) {
       res.status(500).json({ message: "Ops, something went wrong" });
       console.error(e);
@@ -37,12 +37,11 @@ route.post<{}, BodyResponse<IUser>, LoginReqBody>(
       if (!u) {
         return res.status(404).json({ message: "User not found" });
       }
-      const isSamePw = comparePasswords(password, u.password);
-
+      const isSamePw = await comparePasswords(password, u.password);
       if (!isSamePw) {
         return res.status(400).json({ message: "Password does not match" });
       }
-      res.status(200).json({ data: u });
+      res.status(200).json(u);
     } catch (e: any) {
       res.status(500).json({ message: "Ops, something went wrong" });
       console.error(e);
@@ -60,7 +59,7 @@ route.post<{}, BodyResponse<IUser>, UserQueryParams>(
       if (!u) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.status(200).json({ data: u });
+      res.status(200).json(u);
     } catch (e: any) {
       res.status(500).json({ message: "Ops, something went wrong" });
       console.error(e);
@@ -70,15 +69,9 @@ route.post<{}, BodyResponse<IUser>, UserQueryParams>(
 
 //register
 route.post<{}, BodyResponse<IUser>, IUser>("/register", async (req, res) => {
-  const { display_name, password, username } = req.body;
   try {
-    const hashedPw = await hashPw(password);
-    const u = await User.create({
-      display_name,
-      username,
-      password: hashedPw,
-    });
-    res.status(200).json({ data: u });
+    const u = await User.create(req.body);
+    res.status(200).json(u);
   } catch (e: any) {
     res.status(500).json({ message: "Ops, something went wrong" });
     console.error(e);

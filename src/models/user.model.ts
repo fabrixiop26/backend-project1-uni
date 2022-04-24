@@ -29,12 +29,11 @@ const userSchema = new Schema<IUser>({
 });
 
 export const hashPw = async (pw: string): Promise<string> => {
-  const hash = await bcrypt.hash(pw, bcrypt.genSaltSync(10));
-  return hash;
+  return bcrypt.hash(pw, bcrypt.genSaltSync(10));
 };
 
 export const comparePasswords = (pw: string, hash: string) => {
-  return bcrypt.compareSync(pw, hash);
+  return bcrypt.compare(pw, hash);
 };
 
 //pre save hook to hash pw before saving

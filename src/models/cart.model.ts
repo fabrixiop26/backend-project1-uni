@@ -10,12 +10,10 @@ const cartSchema = new Schema<ICart>({
   user_id: {
     type: String,
     required: true,
-    unique: true,
   },
   product_id: {
     type: String,
     required: true,
-    unique: true,
   },
   created_at: {
     type: Date,
