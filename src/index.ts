@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   res
     .status(200)
     .end(
-      "No es el coche que tú conduces... Es el conductor que conduce el coche el que hace la conducción. Toreto 2020, Mega Rapido Mega Furioso 5:15"
+      "No es el coche que tu conduces... Es el conductor que conduce el coche el que hace la conduccion. Toreto 2020, Mega Rapido Mega Furioso 5:15"
     );
 });
 

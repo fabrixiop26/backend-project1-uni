@@ -2,13 +2,14 @@ import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 //interface representing a document in MongoDB.
 export interface IUser {
-  displayName: string;
+  display_name: string;
   username: string;
   password: string;
+  created_at: Date;
 }
 //Create a Schema corresponding to the document interface.
 const userSchema = new Schema<IUser>({
-  displayName: {
+  display_name: {
     type: String,
     required: true,
   },
@@ -21,15 +22,18 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const hashPw = async (pw: string): Promise<string> => {
-  const hash = await bcrypt.hash(pw, bcrypt.genSaltSync(10));
-  return hash;
+  return bcrypt.hash(pw, bcrypt.genSaltSync(10));
 };
 
 export const comparePasswords = (pw: string, hash: string) => {
-  return bcrypt.compareSync(pw, hash);
+  return bcrypt.compare(pw, hash);
 };
 
 //pre save hook to hash pw before saving
@@ -41,6 +45,6 @@ userSchema.pre("save", async function () {
 });
 
 // 3. Create a Model.
-const User = model<IUser>("User", userSchema);
+const User = model("User", userSchema);
 
 export default User;

@@ -1,33 +1,27 @@
 import { model, Schema } from "mongoose";
 
-export interface IPost {
-  owner_id: string;
-  img_url: string;
-  display_name: string;
+export interface IReview {
+  user_id: string;
+  product_id: string;
   description: string;
-  price: number;
+  rating: number;
   created_at: Date;
 }
 
-const postSchema = new Schema<IPost>({
-  owner_id: {
+const reviewSchema = new Schema<IReview>({
+  user_id: {
     type: String,
     required: true,
   },
-  img_url: {
-    type: String,
-    required: false,
-  },
-  display_name: {
+  product_id: {
     type: String,
     required: true,
-    unique: true,
   },
   description: {
     type: String,
     required: true,
   },
-  price: {
+  rating: {
     type: Number,
     required: true,
   },
@@ -37,6 +31,6 @@ const postSchema = new Schema<IPost>({
   },
 });
 
-const Post = model("Post", postSchema);
+const Review = model("Review", reviewSchema);
 
-export default Post;
+export default Review;
